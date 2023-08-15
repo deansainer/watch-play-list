@@ -1,10 +1,25 @@
-<form method="post">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<form method="post" style="margin-left: 800px">
     {% csrf_token %}
+    <br>
     <input type="text" name="movie_name" id="movie_name">
     <button type="submit" name="get_movie">Find</button>
     </form>
+{% for content in content_list %}
+<br>
 
-<img src="{{content_data.content_image}}" style="width: 50px" height="80px">
-{{content_data.content_name}}
-{{content_data.content_type}}
-{{content_data.release_year}}
+<div class="card" style="width: 900px; margin-left: 500px">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img src="{{content.content_image}}" class="card-img" style="width: 100px; height: 150px">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{content.content_name}}</h5>
+                <p class="card-text">{{content.release_year}}</p>
+                <p class="card-text">{{content.content_type}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

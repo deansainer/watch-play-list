@@ -4,5 +4,5 @@ from .views import *
 
 
 urlpatterns = [
-    path('', views.MoviesOrganizerView.as_view())
+    path('', views.movies)
 ]
