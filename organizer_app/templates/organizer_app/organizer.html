@@ -1,0 +1,10 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="movie_name" id="movie_name">
+    <button type="submit" name="get_movie">Find</button>
+    </form>
+
+<img src="{{content_data.content_image}}" style="width: 50px" height="80px">
+{{content_data.content_name}}
+{{content_data.content_type}}
+{{content_data.release_year}}
