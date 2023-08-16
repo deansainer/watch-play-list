@@ -12,7 +12,9 @@ headers = {
 url = "https://imdb8.p.rapidapi.com/auto-complete"
 
 def movies(request):
+    # getting all objects from 'content' model
     content_list = Content.objects.all()
+
     try:
         # get movie name
         query = ''
@@ -20,13 +22,13 @@ def movies(request):
             query= request.POST.get('movie_name')
         querystring = {"q": query}
 
-        #get json data of entered movie
+        #get json data of entered movie name
         response = requests.get(url, headers=headers, params=querystring).json()
         content_data = {
           'content_id': response['d'][0]['id'],
           'content_name': response['d'][0]['l'],
           'content_image': response['d'][0]['i']['imageUrl'],
-          'content_type': response['d'][0]['qid'],
+          'content_type': response['d'][0]['qid'].capitalize(),
           'release_year': response['d'][0]['y'],
         }
 

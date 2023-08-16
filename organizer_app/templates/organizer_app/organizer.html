@@ -1,25 +1,31 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<form method="post" style="margin-left: 800px">
+{% load static %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+<form method="post">
     {% csrf_token %}
     <br>
-    <input type="text" name="movie_name" id="movie_name">
-    <button type="submit" name="get_movie">Find</button>
+    <div class="form-container">
+    <input class="form-control" style="width: 350px" name="movie_name" placeholder="Interstellar">
+    <button class="btn btn-outline-dark" style="margin-left: 25px; width: 100px" type="submit" name="get_movie">Add</button>
+        </div>
     </form>
 {% for content in content_list %}
 <br>
 
 <div class="card" style="width: 900px; margin-left: 500px">
     <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="{{content.content_image}}" class="card-img" style="width: 100px; height: 150px">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">{{content.content_name}}</h5>
-                <p class="card-text">{{content.release_year}}</p>
-                <p class="card-text">{{content.content_type}}</p>
+        <div class="col-md-10" style="display: flex">
+            <img src="{{content.content_image}}" class="card-img" style="width: 110px; height: 160px">
+            <div class="card-body"  style="display: flex">
+                <h2 class="content_name">{{content.content_name}}</h2>
+            </div>
+                <div class="content_side_data">
+                    <p>ID: {{content.content_id}}</p>
+                <p>Release Year: {{content.release_year}}</p>
+                <p>Type: {{content.content_type}}</p>
+                    </div>
             </div>
         </div>
     </div>
-</div>
 {% endfor %}
