@@ -13,19 +13,21 @@
 {% for content in content_list %}
 <br>
 
-<div class="card" style="width: 900px; margin-left: 500px">
+<div class="card" style="width: 1100px;  height: 220px; margin-left: 500px">
     <div class="row no-gutters">
-        <div class="col-md-10" style="display: flex">
-            <img src="{{content.content_image}}" class="card-img" style="width: 110px; height: 160px">
-            <div class="card-body"  style="display: flex">
-                <h2 class="content_name">{{content.content_name}}</h2>
+        <div class="col-md-11" style="display: flex">
+            <img src="{{content.image}}" class="card-img" style="width: 160px; height: 219px">
+            <div class="card-body"  style="">
+                <h2 class="content_name">{{content.title}}</h2> {{content.year}}
+                <p>{{content.genres}}</p>
+                <p>{{content.some_plot}}</p>
             </div>
-                <div class="content_side_data">
-                    <p>ID: {{content.content_id}}</p>
-                <p>Release Year: {{content.release_year}}</p>
-                <p>Type: {{content.content_type}}</p>
-                    </div>
             </div>
-        </div>
+    <div class="col-md-1 cart_buttons">
+        <button type="button" style="width: 75px" class="btn btn-dark">Delete</button>
+        <button type="button" style="width: 75px; margin-top: 10px" class="btn btn-dark">Details</button>
     </div>
+    </div>
+</div>
+
 {% endfor %}

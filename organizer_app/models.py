@@ -4,12 +4,19 @@ from django.db import models
 #           'content_image': response['d'][0]['i']['imageUrl'],
 #           'content_type': response['d'][0]['qid'],
 #           'release_year': response['d'][0]['y'],
+
 class Content(models.Model):
-    content_id = models.CharField(max_length=255, unique=True)
-    content_name = models.CharField(max_length=255, unique=True)
-    content_image = models.URLField()
-    content_type = models.CharField(max_length=55)
-    release_year = models.IntegerField()
+    id = models.CharField(max_length=50, primary_key=True)
+    title = models.CharField(max_length=200)
+    year = models.IntegerField()
+    type = models.CharField(max_length=50)
+    top_rank = models.FloatField()
+    image = models.URLField()
+    duration = models.IntegerField()
+    rating = models.FloatField()
+    genres = models.JSONField()
+    some_plot = models.TextField()
+    full_plot = models.TextField()
 
     def __str__(self):
-        return self.content_name
+        return self.title

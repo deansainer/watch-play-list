@@ -9,7 +9,8 @@ headers = {
   "X-RapidAPI-Key": config('X-RapidAPI-Key'),
   "X-RapidAPI-Host": config('X-RapidAPI-Host'),
 }
-url = "https://imdb8.p.rapidapi.com/auto-complete"
+content_data_url = "https://imdb8.p.rapidapi.com/auto-complete"
+content_details_url = "https://online-movie-database.p.rapidapi.com/title/get-overview-details"
 
 def movies(request):
     # getting all objects from 'content' model
@@ -23,21 +24,31 @@ def movies(request):
         querystring = {"q": query}
 
         #get json data of entered movie name
-        response = requests.get(url, headers=headers, params=querystring).json()
-        content_data = {
-          'content_id': response['d'][0]['id'],
-          'content_name': response['d'][0]['l'],
-          'content_image': response['d'][0]['i']['imageUrl'],
-          'content_type': response['d'][0]['qid'].capitalize(),
-          'release_year': response['d'][0]['y'],
+        response = requests.get(content_data_url, headers=headers, params=querystring).json()
+        get_id = response['d'][0]['id']
+
+        querystring = {"tconst": get_id}
+
+        content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
+
+        content_details_data = {
+            'id': get_id,
+            'title': content_details_response['title']['title'],
+            'year': content_details_response['title']['year'],
+            'type': content_details_response['title']['titleType'].capitalize(),
+            'top_rank': content_details_response['ratings']['topRank'],
+            'image': content_details_response['title']['image']['url'],
+            'duration': content_details_response['title']['runningTimeInMinutes'],
+            'rating': content_details_response['ratings']['rating'],
+            'genres': ', '.join(content_details_response['genres']),
+            'some_plot': content_details_response['plotOutline']['text'],
+            'full_plot': content_details_response['plotSummary']['text'],
         }
 
         #save data from json to model
-        Content.objects.get_or_create(**content_data)
+        Content.objects.get_or_create(**content_details_data)
         redirect('/')
-        context = {
-            'content_list': content_list
-        }
+
         return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
     except Exception:
         return render(request, 'organizer_app/organizer.html',{'content_list': content_list})
