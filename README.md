@@ -1,1 +1,1 @@
-# watch-play-list
+# Watchlist Hub
