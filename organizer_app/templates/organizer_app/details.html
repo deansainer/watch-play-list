@@ -3,10 +3,19 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <div class="details_card">
 
-  <img src="{{content.image}}" style="width: 500px; height: 800px" class="card-img-top"/>
+  <img src="{{content.image}}" style="width: 500px; height: 700px; margin-left: 60px; margin-top: 60px" class="card-img-top"/>
   <div class="d-flex justify-content-between">
     <div class="details_card_data">
-      <span>Duration: </span><span>{{content.duration}} min.</span>
+      <span class="title">{{content.title}}</span><br>
+      <span class="span1">Genre: </span><span>{{content.genres}}</span><br>
+      <span class="span1">ID: </span><span>{{content.id}}</span><br>
+      <span class="span1">Release Year: </span><span>{{content.year}}</span><br>
+      <span class="span1">Duration: </span><span>{{content.duration}} min.</span><br>
+      <span class="span1">Type: </span><span>{{content.type}}</span><br>
+      <span class="span1">Rating: </span><span>{{content.rating}}</span><br>
+      <span class="span1">Top Rank: </span><span>{{content.top_rank}}</span><br>
+      <span class="span1">Full plot: </span><span>{{content.full_plot}}</span><br>
+
     </div>
 </div>
   </div>
