@@ -17,15 +17,25 @@
     <div class="row no-gutters">
         <div class="col-md-11" style="display: flex">
             <img src="{{content.image}}" class="card-img" style="width: 160px; height: 219px">
-            <div class="card-body"  style="">
-                <h2 class="content_name">{{content.title}}</h2> {{content.year}}
+            <div class="card-body">
+                <div style="display: flex">
+                <h1 class="content_name">{{content.title}}</h1>({{content.duration}}min.)
+                    </div>
+                {{content.year}}
                 <p>{{content.genres}}</p>
                 <p>{{content.some_plot}}</p>
             </div>
             </div>
+
     <div class="col-md-1 cart_buttons">
-        <button type="button" style="width: 75px" class="btn btn-dark">Delete</button>
-        <button type="button" style="width: 75px; margin-top: 10px" class="btn btn-dark">Details</button>
+         <a href="{% url 'details_url' content.id %}">
+    <button name="details" type="button" style="width: 75px;" class="btn btn-dark">Details</button>
+        </a>
+
+        <a href="{% url 'delete_url' content.id %}">
+    <button name="delete" type="button" style="width: 75px ;margin-top: 10px" class="btn btn-dark">Delete</button>
+        </a>
+
     </div>
     </div>
 </div>

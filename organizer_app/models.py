@@ -10,7 +10,7 @@ class Content(models.Model):
     title = models.CharField(max_length=200)
     year = models.IntegerField()
     type = models.CharField(max_length=50)
-    top_rank = models.FloatField()
+    top_rank = models.IntegerField()
     image = models.URLField()
     duration = models.IntegerField()
     rating = models.FloatField()

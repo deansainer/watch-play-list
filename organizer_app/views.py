@@ -17,7 +17,7 @@ def movies(request):
     content_list = Content.objects.all()
 
     try:
-        # get movie name
+        # get movie name from user
         query = ''
         if 'get_movie' in request.POST:
             query= request.POST.get('movie_name')
@@ -25,6 +25,8 @@ def movies(request):
 
         #get json data of entered movie name
         response = requests.get(content_data_url, headers=headers, params=querystring).json()
+
+        #get id of entered movie
         get_id = response['d'][0]['id']
 
         querystring = {"tconst": get_id}
@@ -52,3 +54,13 @@ def movies(request):
         return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
     except Exception:
         return render(request, 'organizer_app/organizer.html',{'content_list': content_list})
+
+# delete content from list
+def delete(request, id):
+    content = Content.objects.get(id=id)
+    content.delete()
+    return redirect('/')
+
+def details(request, id):
+    content = Content.objects.get(id=id)
+    return render(request, 'organizer_app/details.html', {'content': content})
