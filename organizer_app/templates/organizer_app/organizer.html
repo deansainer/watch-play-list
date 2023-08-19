@@ -13,7 +13,7 @@
 {% for content in content_list %}
 <br>
 
-<div class="card text-white bg-dark" style="width: 1100px;  height: 220px; margin-left: 500px;">
+<div class="card text-white bg-dark" style="width: 1100px;  height: 220px; margin-left: 450px;">
     <div class="row no-gutters">
         <div class="col-md-11" style="display: flex">
             <img src="{{content.image}}" class="card-img" style="width: 160px; height: 220px">
@@ -27,7 +27,7 @@
             </div>
             </div>
 
-    <div class="col-md-1 card_buttons">
+    <div class="col-md-1">
 
          <div class="delete-button">
         <a class="delete-button" href="{% url 'delete_url' content.id %}">
@@ -36,8 +36,8 @@
         </div>
 
         <div class="details-button">
-         <a href="{% url 'details_url' content.id %}">
-    <button type="button" style="width: 75px;" class="btn btn-secondary">Details</button>
+         <a class="details-button" href="{% url 'details_url' content.id %}">
+            <img src="https://www.pinclipart.com/picdir/big/333-3334785_png-transparent-info-icon-white-clipart.png" style="width:30px;height:30px; position:relative;">
         </a>
         </div>
 
