@@ -14,7 +14,9 @@
       <span class="span1">ID: </span><span class="span3">{{content.id}}</span><br>
       <span class="span1">Duration: </span><span class="span3">{{content.duration}} min.</span><br>
       <span class="span1">Type: </span><span class="span3">{{content.type}}</span><br>
-        <span class="span1">Summary: </span><span class="span3">{{content.some_plot}}</span><br>
+        <a href="https://www.imdb.com/title/{{content.id}}/" target="_blank">
+    <button type="button" style="width: 160px; margin-left: 0px; position: absolute; bottom: 25px;" class="btn btn-secondary">Open in IMDB</button>
+        </a>
     </blockquote>
   </div>
 </div>
@@ -23,4 +25,5 @@
     <blockquote class="blockquote mb-0 card-body">
       <p style="font-family: Georgia, serif">{{content.full_plot}}</p>
     </blockquote>
+
   </div>

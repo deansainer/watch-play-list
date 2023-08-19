@@ -28,13 +28,19 @@
             </div>
 
     <div class="col-md-1 card_buttons">
-         <a href="{% url 'details_url' content.id %}">
-    <button name="details" type="button" style="width: 75px;" class="btn btn-secondary">Details</button>
-        </a>
 
-        <a href="{% url 'delete_url' content.id %}">
-    <button name="delete" type="button" style="width: 75px ;margin-top: 10px;" class="btn btn-secondary">Delete</button>
+         <div class="delete-button">
+        <a class="delete-button" href="{% url 'delete_url' content.id %}">
+            <img src="https://cdn-icons-png.flaticon.com/128/463/463612.png" style="width:18px;height:18px;">
         </a>
+        </div>
+
+        <div class="details-button">
+         <a href="{% url 'details_url' content.id %}">
+    <button type="button" style="width: 75px;" class="btn btn-secondary">Details</button>
+        </a>
+        </div>
+
 
     </div>
     </div>
