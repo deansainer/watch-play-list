@@ -4,10 +4,11 @@
 }
 .content_name{
     font-size: 25px;
+    font-family: Georgia, serif;
 }
 
-.cart_buttons{
-    margin-top: 75px;
+.card_buttons{
+    margin-top: 67px;
     margin-bottom: 10px;
 }
 .details_card{
@@ -24,14 +25,30 @@
 }
 .title{
     font-size: 60px;
-    font-family: "Times New Roman", Times, serif;;
+    font-family: Georgia, serif
 }
 .span1{
-    font-family: "Times New Roman", Times, serif;;
-    font-size: 30px;
+    font-family: Georgia, serif;
+    font-size: 21px;
 }
-.duration{
+.span2{
+    font-family: Georgia, serif;
+    font-size: 19px;
+}
+.span3{
+    font-family: Georgia, serif;
+    font-size: 17px;
+}
+.duration {
     margin-top: 6px;
     margin-left: 8px;
     font-size: 15px;
+    font-family: Georgia, serif;
+
+}
+.p1{
+    font-family: Georgia, serif
+}
+body{
+    background-color: #1E1E1E;
 }

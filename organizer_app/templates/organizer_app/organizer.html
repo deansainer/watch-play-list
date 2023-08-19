@@ -7,33 +7,33 @@
     <br>
     <div class="form-container">
     <input class="form-control" style="width: 350px" name="movie_name" placeholder="Interstellar">
-    <button class="btn btn-outline-dark" style="margin-left: 25px; width: 100px" type="submit" name="get_movie">Add</button>
+    <button class="btn btn-secondary" style="margin-left: 25px; width: 100px" type="submit" name="get_movie">Add</button>
         </div>
     </form>
 {% for content in content_list %}
 <br>
 
-<div class="card" style="width: 1100px;  height: 220px; margin-left: 500px">
+<div class="card text-white bg-dark" style="width: 1100px;  height: 220px; margin-left: 500px;">
     <div class="row no-gutters">
         <div class="col-md-11" style="display: flex">
-            <img src="{{content.image}}" class="card-img" style="width: 160px; height: 219px">
+            <img src="{{content.image}}" class="card-img" style="width: 160px; height: 220px">
             <div class="card-body">
                 <div style="display: flex">
                 <h1 class="content_name">{{content.title}}</h1><span class="duration">({{content.duration}}min.)</span>
                     </div>
-                {{content.year}}
-                <p>{{content.genres}}</p>
-                <p>{{content.some_plot}}</p>
+                <span class="span2">{{content.year}}</span>
+                <p class="p1">{{content.genres}}</p>
+                <p class="p1">{{content.some_plot}}</p>
             </div>
             </div>
 
-    <div class="col-md-1 cart_buttons">
+    <div class="col-md-1 card_buttons">
          <a href="{% url 'details_url' content.id %}">
-    <button name="details" type="button" style="width: 75px;" class="btn btn-dark">Details</button>
+    <button name="details" type="button" style="width: 75px;" class="btn btn-secondary">Details</button>
         </a>
 
         <a href="{% url 'delete_url' content.id %}">
-    <button name="delete" type="button" style="width: 75px ;margin-top: 10px" class="btn btn-dark">Delete</button>
+    <button name="delete" type="button" style="width: 75px ;margin-top: 10px;" class="btn btn-secondary">Delete</button>
         </a>
 
     </div>
