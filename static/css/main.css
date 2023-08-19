@@ -52,9 +52,13 @@ body{
 .delete-button{
     margin-top: 2px;
     margin-bottom: 50px;
-    margin-left: 36px;
+    margin-left: 33px;
 }
 .details-button{
+    margin-top: 10px;
     margin-left: 15px;
     bottom: 10px;
+}
+.custom-bg{
+    background-color: #2E3439;
 }
