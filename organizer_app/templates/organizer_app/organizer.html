@@ -10,9 +10,16 @@
     <br>
     <div class="form-container">
     <input class="form-control" style="width: 350px" name="movie_name" placeholder="Interstellar">
-    <button class="btn btn-secondary" style="margin-left: 25px; width: 100px" type="submit" name="get_movie">Add</button>
+    <button class="btn btn-secondary" style="margin-left: 25px; width: 80px" type="submit" name="get_movie">Add</button>
         </div>
     </form>
+<div class="not_found_message">
+        {% if messages %}
+        {% for message in messages %}
+           <<div class="alert alert-danger" role="alert">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+        </div>
 {% for content in content_list %}
 <br>
 

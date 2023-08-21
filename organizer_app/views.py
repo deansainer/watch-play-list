@@ -4,6 +4,8 @@ import requests
 from pprint import pprint
 from decouple import config
 from .models import *
+from django.contrib import messages
+
 
 headers = {
   "X-RapidAPI-Key": config('X-RapidAPI-Key'),
@@ -56,6 +58,7 @@ class MovieView(View):
 
             return render(request,'organizer_app/organizer.html', {'content_list': content_list})
         except Exception:
+            messages.info(request, 'Content not found, try again.')
             return render(request, 'organizer_app/organizer.html',{'content_list': content_list})
 
 # delete content from list
