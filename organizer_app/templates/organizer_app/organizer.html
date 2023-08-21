@@ -38,9 +38,15 @@
         </a>
         </div>
 
-        <div class="details-button">
-         <a class="details-button" href="{% url 'details_url' content.id %}">
+        <div class="extra-button">
+         <a class="extra-button" href="{% url 'details_url' content.id %}">
             <img src="https://www.pinclipart.com/picdir/big/333-3334785_png-transparent-info-icon-white-clipart.png" style="width:30px;height:30px; position:relative;">
+        </a>
+        </div>
+
+        <div class="extra-button">
+         <a class="extra-button" href="{% url 'mark_as_watched_url' content.id %}">
+            <img src="https://i.ibb.co/C2199jj/output-onlinepngtools-1.png" style="width:35px;height:35px; position:relative;">
         </a>
         </div>
 

@@ -17,6 +17,6 @@ class Content(models.Model):
     genres = models.JSONField()
     some_plot = models.TextField()
     full_plot = models.TextField()
-
+    is_watched = models.BooleanField(default=False)
     def __str__(self):
         return self.title

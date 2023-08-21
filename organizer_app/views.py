@@ -14,10 +14,11 @@ content_details_url = "https://online-movie-database.p.rapidapi.com/title/get-ov
 
 class MovieView(View):
     def get(self, request, *args, **kwargs):
-        content_list = Content.objects.all()
+        content_list = Content.objects.filter(is_watched=False)
         return render(request,'organizer_app/organizer.html', {'content_list': content_list})
     def post(self, request, *args, **kwargs):
-        content_list = Content.objects.all() # getting all objects from 'content' model
+        # getting all unwatched objects from 'content' model
+        content_list = Content.objects.filter(is_watched=False)
         try:
             # get movie name from user
             query = ''
@@ -66,3 +67,9 @@ def delete(request, id):
 def details(request, id):
     content = Content.objects.get(id=id)
     return render(request, 'organizer_app/details.html', {'content': content})
+
+def mark_as_watched(request, id):
+    content = Content.objects.get(id=id)
+    content.is_watched=True
+    content.save()
+    return redirect('/')
