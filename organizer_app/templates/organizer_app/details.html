@@ -6,9 +6,9 @@
 
 {% block body %}
 <div class="container" style="display: flex">
-<img src="{{content.image}}" style="width: 400px; height: 600px; margin-left: 120px; margin-top: 40px" class="card-img-top"/>
+<img src="{{content.image}}" style="width: 400px; height: 600px; margin-left: 120px; margin-top: 20px" class="card-img-top"/>
 
-<div class="card p-3 text-white bg-dark" style="width: 600px; display: flex; height: 600px; margin-top: 40px; margin-left: 10px; font-family: Georgia, serif">
+<div class="card p-3 text-white bg-dark" style="width: 600px; display: flex; height: 600px; margin-top: 20px; margin-left: 10px; font-family: Georgia, serif">
     <blockquote class="blockquote mb-0 card-body">
       <span class="title">{{content.title}}</span><br><br>
       <span class="span1">Release Year: </span><span class="span3">{{content.year}}</span><br>
@@ -18,6 +18,7 @@
       <span class="span1">ID: </span><span class="span3">{{content.id}}</span><br>
       <span class="span1">Duration: </span><span class="span3">{{content.duration}} min.</span><br>
       <span class="span1">Type: </span><span class="span3">{{content.type}}</span><br>
+
         <a href="https://www.imdb.com/title/{{content.id}}/" target="_blank">
     <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 20px" class="btn btn-secondary">Trailer</button>
         </a>
