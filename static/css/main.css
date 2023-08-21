@@ -1,6 +1,6 @@
 .form-container{
     display: flex;
-    margin-left: 700px;
+    margin-left: 750px;
 }
 .content_name{
     font-size: 25px;
@@ -61,4 +61,8 @@ body{
 }
 .custom-bg{
     background-color: #2E3439;
+}
+
+.unwatched_button{
+    left: 10px;
 }

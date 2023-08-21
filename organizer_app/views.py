@@ -64,12 +64,26 @@ def delete(request, id):
     content.delete()
     return redirect('/')
 
+# movie details page
 def details(request, id):
     content = Content.objects.get(id=id)
     return render(request, 'organizer_app/details.html', {'content': content})
 
+# mark movie as watched
 def mark_as_watched(request, id):
     content = Content.objects.get(id=id)
     content.is_watched=True
     content.save()
     return redirect('/')
+
+def mark_as_unwatched(request, id):
+    content = Content.objects.get(id=id)
+    content.is_watched=False
+    content.save()
+    return redirect('/history')
+
+class HistoryView(View):
+    def get(self, request, *args, **kwargs):
+        content_list = Content.objects.filter(is_watched=True)
+        context = {'content_list': content_list}
+        return render(request, 'organizer_app/history.html', context)

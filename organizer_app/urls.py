@@ -8,4 +8,6 @@ urlpatterns = [
     path('delete/<str:id>', views.delete, name='delete_url'),
     path('details/<str:id>', views.details, name='details_url'),
     path('mark_as_watched/<str:id>', views.mark_as_watched, name='mark_as_watched_url'),
+    path('history', views.HistoryView.as_view(), name='history_url'),
+    path('mark_as_unwatched/<str:id>', views.mark_as_unwatched, name='mark_as_unwatched_url'),
 ]
