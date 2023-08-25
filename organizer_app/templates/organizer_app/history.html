@@ -4,6 +4,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
+{% block head %}
+<head>
+  <title>Watch History</title>
+</head>
+<link rel="icon" href="https://i.ibb.co/CBxjv1D/icons8-movie-100.png">
+{% endblock %}
+
 {% block body %}
 <span class="header_font" style="margin-left: 800px">Watch History</span>
 <br>
@@ -15,6 +22,7 @@
       <th scope="col">ID</th>
       <th scope="col">Year</th>
       <th scope="col">Type</th>
+      <th scope="col">Rank</th>
       <th scope="col">Rating</th>
       <th scope="col"></th>
     </tr>
@@ -28,9 +36,10 @@
      </td>
       <td style="width: 30%"><a href="{% url 'details_url' content.id %}" style="color: white">{{content.title}}</a></td>
         <td style="width: 4%; margin-top: 100px;"> <a style="color: white" href="https://www.imdb.com/title/{{content.id}}/">{{content.id}}</a></td>
-      <td style="width: 5%">{{content.year}}</td>
-      <td style="width: 5%">{{content.type}}</td>
-      <td style="width: 5%">{{content.rating}}</td>
+      <td style="width: 7%">{{content.year}}</td>
+      <td style="width: 7%">{{content.type}}</td>
+      <td style="width: 7%">{{content.top_rank}}</td>
+        <td style="width: 7%">{{content.rating}}</td>
       <td style="width: 1%">
         <div class="unwatched_button">
          <a class="unwatched_button" href="{% url 'mark_as_unwatched_url' content.id %}">
