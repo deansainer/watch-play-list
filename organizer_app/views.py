@@ -29,15 +29,23 @@ class MovieView(View):
             query = ''
             if 'get_movie' in request.POST:
                 query= request.POST.get('movie_name')
-            querystring = {"q": query}
+                querystring = {"q": query}
 
-            #get json data of entered movie name
-            response = requests.get(content_data_url, headers=headers, params=querystring).json()
+                #get json data of entered movie name
+                response = requests.get(content_data_url, headers=headers, params=querystring).json()
 
-            #get id of entered movie
-            get_id = response['d'][0]['id']
+                #get id of entered movie
+                get_id = response['d'][0]['id']
 
-            querystring = {"tconst": get_id}
+                querystring = {"tconst": get_id}
+
+            if 'get_movie_url' in request.POST:
+                get_url = request.POST.get('movie_url')
+                match = re.search(r'tt\d+', get_url)
+                if match:
+                    get_id = match.group(0)
+
+                querystring = {"tconst": get_id}
 
             content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
 
@@ -98,34 +106,36 @@ class HistoryView(View):
 
 class MostPopularMoviesView(View):
     def get(self, request, *args, **kwargs):
-        most_popular_movies_response = requests.get(most_popular_movies_url, headers=headers,
-                                                    params=most_popular_movies_querystring).json()[:10]
+        movies_list = Movie.objects.all()
+        ids = []
+        if len(movies_list) <= 0:
+            most_popular_movies_response = requests.get(most_popular_movies_url, headers=headers,
+                                                        params=most_popular_movies_querystring).json()[:10]
+            # get only ids from strings
+            for id in most_popular_movies_response:
+                pattern = r'/title/(tt\d+)/'
+                match = re.search(pattern, id)
+                if match:
+                    movie_id = match.group(1)
+                    ids.append(movie_id)
+            # get movies data from ids
+            for id in ids:
+                querystring = {"tconst": id}
 
-        pattern = r'/title/(tt\d+)/'
+                content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
 
-        top_rated_list = []
-
-        for id in most_popular_movies_response:
-            match = re.search(pattern, id)
-            if match:
-                movie_id = match.group(1)
-                top_rated_list.append(movie_id)
-
-        most_popular_movies_list = []
-
-        for id in top_rated_list:
-            querystring = {"tconst": id}
-
-            content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
-
-            content_details_data = {
-                'id': id,
-                'title': content_details_response['title']['title'],
-                'year': content_details_response['title']['year'],
-                'image': content_details_response['title']['image']['url'],
-                'duration': content_details_response['title']['runningTimeInMinutes'],
-                'genres': ', '.join(content_details_response['genres']),
-            }
-            most_popular_movies_list.append(content_details_data)
-        context = {'most_popular_movies_list': most_popular_movies_list}
-        return render(request, 'organizer_app/most_popular_movies.html', context)
+                movie_details_data = {
+                    'id': id,
+                    'title': content_details_response['title']['title'],
+                    'year': content_details_response['title']['year'],
+                    'image': content_details_response['title']['image']['url'],
+                    'duration': content_details_response['title']['runningTimeInMinutes'],
+                    'genres': ', '.join(content_details_response['genres']),
+                }
+                # save it into models
+                Movie.objects.get_or_create(**movie_details_data)
+                context = {'movies_list': movies_list}
+            return render(request, 'organizer_app/most_popular_movies.html', context)
+        else:
+            context = {'movies_list': movies_list}
+            return render(request, 'organizer_app/most_popular_movies.html', context)

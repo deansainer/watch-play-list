@@ -1,6 +1,6 @@
 .form-container{
     display: flex;
-    margin-left: 750px;
+    margin-left: 451px;
 }
 .content_name{
     font-size: 25px;
@@ -67,7 +67,7 @@ body{
     left: 10px;
 }
 .header_font{
-    font-family: cursive;
+    font-family: Georgia, serif;
     font-size: 50px;
     color: white;
 }
@@ -76,5 +76,8 @@ body{
     margin-left: 1290px;
 }
 .nav_font{
-    font-family: cursive;
+    font-family: Georgia, serif;
+}
+.formss{
+    display: flex;
 }

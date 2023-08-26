@@ -12,14 +12,28 @@
 {% endblock %}
 
 {% block body %}
+<div class="formss">
 <form method="post">
     {% csrf_token %}
     <br>
     <div class="form-container">
     <input class="form-control" style="width: 350px" name="movie_name" placeholder="Interstellar">
-    <button class="btn btn-secondary" style="margin-left: 25px; width: 80px" type="submit" name="get_movie">Add</button>
+    <button class="btn btn-secondary" style="margin-left: 25px; width: 120px" type="submit" name="get_movie">Add via title</button>
         </div>
     </form>
+<div style="color: white; display: flex; margin-left: 33px; margin-top: 25px; font-size: 25px;
+    font-family: Georgia, serif;">
+    OR
+</div>
+<form method="post">
+    {% csrf_token %}
+    <br>
+    <div style="display: flex; margin-left: 35px">
+    <input class="form-control" style="width: 350px" name="movie_url" placeholder="https://www.imdb.com/title/tt1411697/">
+    <button class="btn btn-secondary" style="margin-left: 25px; width: 120px" type="submit" name="get_movie_url">Add via link</button>
+        </div>
+    </form>
+    </div>
 <div class="not_found_message">
         {% if messages %}
         {% for message in messages %}

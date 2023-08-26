@@ -6,7 +6,7 @@
 
 {% block head %}
 <head>
-  <title>Most popular movies</title>
+  <title>Most Popular Movies</title>
 </head>
 <link rel="icon" href="https://i.ibb.co/CBxjv1D/icons8-movie-100.png">
 {% endblock %}
@@ -27,12 +27,12 @@
   </thead>
   <tbody>
   <br>
-{% for movie in most_popular_movies_list %}
+{% for movie in movies_list %}
     <tr>
      <td style="width: 1%; height: 10px">
          <a href="{{movie.image}}"><img src="{{movie.image}}" style="height: 40px; width: 30px"></a>
      </td>
-      <td style="width: 30%"><a href="https://www.imdb.com/title/{{movie.id}}/" style="color: white">{{movie.title}}</a></td>
+      <td style="width: 20%">{{movie.title}}</td>
       <td style="width: 7%">{{movie.year}}</td>
       <td style="width: 7%">{{movie.duration}} min.</td>
       <td style="width: 25%">{{movie.genres}}</td>
