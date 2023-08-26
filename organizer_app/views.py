@@ -5,13 +5,16 @@ from pprint import pprint
 from decouple import config
 from .models import *
 from django.contrib import messages
-
+import re
 
 headers = {
   "X-RapidAPI-Key": config('X-RapidAPI-Key'),
   "X-RapidAPI-Host": config('X-RapidAPI-Host'),
 }
-content_data_url = "https://imdb8.p.rapidapi.com/auto-complete"
+most_popular_movies_url = "https://online-movie-database.p.rapidapi.com/title/get-most-popular-movies"
+most_popular_movies_querystring = {"currentCountry":"US","purchaseCountry":"US","homeCountry":"US"}
+
+content_data_url = "https://online-movie-database.p.rapidapi.com/auto-complete"
 content_details_url = "https://online-movie-database.p.rapidapi.com/title/get-overview-details"
 
 class MovieView(View):
@@ -79,14 +82,50 @@ def mark_as_watched(request, id):
     content.save()
     return redirect('/')
 
+# mark movie as unwatched
 def mark_as_unwatched(request, id):
     content = Content.objects.get(id=id)
     content.is_watched=False
     content.save()
     return redirect('/history')
 
+# watch history page
 class HistoryView(View):
     def get(self, request, *args, **kwargs):
         content_list = Content.objects.filter(is_watched=True)
         context = {'content_list': content_list}
         return render(request, 'organizer_app/history.html', context)
+
+class MostPopularMoviesView(View):
+    def get(self, request, *args, **kwargs):
+        most_popular_movies_response = requests.get(most_popular_movies_url, headers=headers,
+                                                    params=most_popular_movies_querystring).json()[:10]
+
+        pattern = r'/title/(tt\d+)/'
+
+        top_rated_list = []
+
+        for id in most_popular_movies_response:
+            match = re.search(pattern, id)
+            if match:
+                movie_id = match.group(1)
+                top_rated_list.append(movie_id)
+
+        most_popular_movies_list = []
+
+        for id in top_rated_list:
+            querystring = {"tconst": id}
+
+            content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
+
+            content_details_data = {
+                'id': id,
+                'title': content_details_response['title']['title'],
+                'year': content_details_response['title']['year'],
+                'image': content_details_response['title']['image']['url'],
+                'duration': content_details_response['title']['runningTimeInMinutes'],
+                'genres': ', '.join(content_details_response['genres']),
+            }
+            most_popular_movies_list.append(content_details_data)
+        context = {'most_popular_movies_list': most_popular_movies_list}
+        return render(request, 'organizer_app/most_popular_movies.html', context)

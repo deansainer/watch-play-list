@@ -67,11 +67,14 @@ body{
     left: 10px;
 }
 .header_font{
-    font-family: 'Times New Roman', serif;
+    font-family: cursive;
     font-size: 50px;
     color: white;
 }
 .not_found_message{
     display: flex;
     margin-left: 1290px;
+}
+.nav_font{
+    font-family: cursive;
 }

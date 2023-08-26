@@ -1,0 +1,46 @@
+{% extends 'organizer_app/main.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+{% block head %}
+<head>
+  <title>Most popular movies</title>
+</head>
+<link rel="icon" href="https://i.ibb.co/CBxjv1D/icons8-movie-100.png">
+{% endblock %}
+
+{% block body %}
+<span class="header_font" style="margin-left: 680px">Top 10 Most Popular Movies</span>
+<br>
+<table class="table table-striped table-bordered table-dark" style="width: 60%; text-align: center; margin-left: 400px">
+  <thead>
+    <tr>
+      <th scope="col">Poster</th>
+      <th scope="col">Title</th>
+      <th scope="col">Year</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Genres</th>
+      <th scope="col">ID</th>
+    </tr>
+  </thead>
+  <tbody>
+  <br>
+{% for movie in most_popular_movies_list %}
+    <tr>
+     <td style="width: 1%; height: 10px">
+         <a href="{{movie.image}}"><img src="{{movie.image}}" style="height: 40px; width: 30px"></a>
+     </td>
+      <td style="width: 30%"><a href="https://www.imdb.com/title/{{movie.id}}/" style="color: white">{{movie.title}}</a></td>
+      <td style="width: 7%">{{movie.year}}</td>
+      <td style="width: 7%">{{movie.duration}} min.</td>
+      <td style="width: 25%">{{movie.genres}}</td>
+      <td style="width: 4%; margin-top: 100px;"> <a style="color: white" href="https://www.imdb.com/title/{{movie.id}}/">{{movie.id}}</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+

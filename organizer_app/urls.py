@@ -10,4 +10,5 @@ urlpatterns = [
     path('mark_as_watched/<str:id>', views.mark_as_watched, name='mark_as_watched_url'),
     path('history', views.HistoryView.as_view(), name='history_url'),
     path('mark_as_unwatched/<str:id>', views.mark_as_unwatched, name='mark_as_unwatched_url'),
+    path('most_popular_movies', views.MostPopularMoviesView.as_view(), name = 'most_popular_movies_url')
 ]
