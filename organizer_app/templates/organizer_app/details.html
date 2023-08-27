@@ -1,50 +1,60 @@
 {% extends 'organizer_app/main.html' %}
 {% load static %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
 {% block head %}
 <head>
-  <title>{{content.title}} ({{content.year}})</title>
+    <title>{{content.title}} ({{content.year}})</title>
 </head>
 <link rel="icon" href="https://i.ibb.co/CBxjv1D/icons8-movie-100.png">
 {% endblock %}
 
 {% block body %}
 <div class="container" style="display: flex">
-<img src="{{content.image}}" style="width: 400px; height: 600px; margin-left: 120px; margin-top: 20px" class="card-img-top"/>
+    <img src="{{content.image}}" style="width: 400px; height: 600px; margin-left: 120px; margin-top: 20px"
+         class="card-img-top"/>
 
-<div class="card p-3 text-white bg-dark" style="width: 600px; display: flex; height: 600px; margin-top: 20px; margin-left: 10px; font-family: Georgia, serif">
-    <blockquote class="blockquote mb-0 card-body">
-      <span class="title">{{content.title}}</span><br><br>
-      <span class="span1">Release Year: </span><span class="span3">{{content.year}}</span><br>
-      <span class="span1">Genres: </span><span class="span3">{{content.genres}}</span><br>
-      <span class="span1">Rating: </span><span class="span3">{{content.rating}}</span><br>
-      <span class="span1">Top Rank: </span><span class="span3">{{content.top_rank}}</span><br>
-      <span class="span1">ID: </span><span class="span3">{{content.id}}</span><br>
-      <span class="span1">Duration: </span><span class="span3">{{content.duration}} min.</span><br>
-      <span class="span1">Type: </span><span class="span3">{{content.type}}</span><br>
+    <div class="card p-3 text-white bg-dark"
+         style="width: 600px; display: flex; height: 600px; margin-top: 20px; margin-left: 10px; font-family: Georgia, serif">
+        <blockquote class="blockquote mb-0 card-body">
+            <span class="title">{{content.title}}</span><br><br>
+            <span class="span1">Release Year: </span><span class="span3">{{content.year}}</span><br>
+            <span class="span1">Genres: </span><span class="span3">{{content.genres}}</span><br>
+            <span class="span1">Rating: </span><span class="span3">{{content.rating}}</span><br>
+            <span class="span1">Top Rank: </span><span class="span3">{{content.top_rank}}</span><br>
+            <span class="span1">ID: </span><span class="span3">{{content.id}}</span><br>
+            <span class="span1">Duration: </span><span class="span3">{{content.duration}} min.</span><br>
+            <span class="span1">Type: </span><span class="span3">{{content.type}}</span><br>
 
-        <a href="https://www.imdb.com/title/{{content.id}}/" target="_blank">
-    <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 20px" class="btn btn-secondary">Trailer</button>
-        </a>
-        <a href="https://www.imdb.com/title/{{content.id}}/fullcredits?ref_=tt_cl_sm" target="_blank">
-    <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 210px;" class="btn btn-secondary">Cast</button>
-        </a>
-        <a href="https://www.imdb.com/title/{{content.id}}/reviews/?ref_=tt_ov_rt" target="_blank">
-    <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 400px;" class="btn btn-secondary">Reviews</button>
-        </a>
-    </blockquote>
-  </div>
+            <a href="https://www.imdb.com/title/{{content.id}}/" target="_blank">
+                <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 20px"
+                        class="btn btn-secondary">Trailer
+                </button>
+            </a>
+            <a href="https://www.imdb.com/title/{{content.id}}/fullcredits?ref_=tt_cl_sm" target="_blank">
+                <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 210px;"
+                        class="btn btn-secondary">Cast
+                </button>
+            </a>
+            <a href="https://www.imdb.com/title/{{content.id}}/reviews/?ref_=tt_ov_rt" target="_blank">
+                <button type="button" style="width: 160px; position: absolute; bottom: 25px; left: 400px;"
+                        class="btn btn-secondary">Reviews
+                </button>
+            </a>
+        </blockquote>
+    </div>
 </div>
 
-<div class="card p-3 text-white bg-dark" style="width: 990px; margin-left: 525px; margin-top: 10px; margin-bottom: 10px">
+<div class="card p-3 text-white bg-dark"
+     style="width: 990px; margin-left: 525px; margin-top: 10px; margin-bottom: 10px">
     <blockquote class="blockquote mb-0 card-body">
-      <p style="font-family: Georgia, serif">{{content.full_plot}}</p>
+        <p style="font-family: Georgia, serif">{{content.full_plot}}</p>
     </blockquote>
 
-  </div>
+</div>
 {% endblock %}
 
 <!--https://www.imdb.com/title/tt1630029/videogallery/?ref_=tt_ov_vi_sm-->

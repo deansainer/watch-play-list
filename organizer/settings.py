@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'organizer_app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +84,13 @@ DATABASES = {
         'HOST': config('DB_HOST'),
         'PORT': '5432',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }
 
 

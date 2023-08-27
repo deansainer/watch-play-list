@@ -1,41 +1,48 @@
-.form-container{
+.form-container {
     display: flex;
     margin-left: 451px;
 }
-.content_name{
+
+.content_name {
     font-size: 25px;
     font-family: Georgia, serif;
 }
 
 
-.details_card{
+.details_card {
     margin-left: 200px;
-    width:100%;
+    width: 100%;
     display: flex;
 }
-.details_card_data{
+
+.details_card_data {
     width: 100%;
     height: 800px;
     margin-left: 100px;
     margin-top: 50px;
     font-size: 20px;
 }
-.title{
+
+.title {
     font-size: 60px;
     font-family: Georgia, serif
 }
-.span1{
+
+.span1 {
     font-family: Georgia, serif;
     font-size: 21px;
 }
-.span2{
+
+.span2 {
     font-family: Georgia, serif;
     font-size: 19px;
 }
-.span3{
+
+.span3 {
     font-family: Georgia, serif;
     font-size: 17px;
 }
+
 .duration {
     margin-top: 6px;
     margin-left: 8px;
@@ -43,52 +50,63 @@
     font-family: Georgia, serif;
 
 }
-.p1{
+
+.p1 {
     font-family: Georgia, serif
 }
-body{
+
+body {
     background-color: #1E1E1E;
 }
-.delete-button{
+
+.delete-button {
     margin-top: 2px;
     margin-bottom: 50px;
     margin-left: 33px;
 }
-.extra-button{
+
+.extra-button {
     margin-top: 10px;
     margin-left: 15px;
     bottom: 10px;
 }
-.custom-bg{
+
+.custom-bg {
     background-color: #2E3439;
 }
 
-.unwatched_button{
+.unwatched_button {
     left: 10px;
 }
-.header_font{
+
+.header_font {
     font-family: Georgia, serif;
     font-size: 50px;
     color: white;
 }
-.not_found_message{
+
+.not_found_message {
     display: flex;
     margin-left: 1290px;
 }
-.nav_font{
+
+.nav_font {
     font-family: Georgia, serif;
 }
-.formss{
+
+.formss {
     display: flex;
 }
-.register_form{
+
+.register_form {
     display: block;
     margin-left: 640px;
     margin-top: 89px;
-    color:white;
+    color: white;
 }
-.login_form{
-    color:white;
+
+.login_form {
+    color: white;
     margin-left: 37%;
     margin-top: 5%;
 }

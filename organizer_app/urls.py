@@ -2,7 +2,6 @@ from django.urls import path, include
 from . import views
 from .views import *
 
-
 urlpatterns = [
     path('register/', views.register, name='register_url'),
     path('login/', views.user_login, name='login_url'),
@@ -13,6 +12,7 @@ urlpatterns = [
     path('mark_as_watched/<str:id>', views.mark_as_watched, name='mark_as_watched_url'),
     path('history', views.HistoryView.as_view(), name='history_url'),
     path('mark_as_unwatched/<str:id>', views.mark_as_unwatched, name='mark_as_unwatched_url'),
-    path('most_popular_movies', views.MostPopularMoviesView.as_view(), name = 'most_popular_movies_url'),
+    path('most_popular_movies', views.MostPopularMoviesView.as_view(), name='most_popular_movies_url'),
+    path('api/', include('rest_framework.urls')),
 
 ]

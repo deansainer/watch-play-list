@@ -10,14 +10,15 @@ from django.contrib import messages
 import re
 
 headers = {
-  "X-RapidAPI-Key": config('X-RapidAPI-Key'),
-  "X-RapidAPI-Host": config('X-RapidAPI-Host'),
+    "X-RapidAPI-Key": config('X-RapidAPI-Key'),
+    "X-RapidAPI-Host": config('X-RapidAPI-Host'),
 }
 most_popular_movies_url = "https://online-movie-database.p.rapidapi.com/title/get-most-popular-movies"
-most_popular_movies_querystring = {"currentCountry":"US","purchaseCountry":"US","homeCountry":"US"}
+most_popular_movies_querystring = {"currentCountry": "US", "purchaseCountry": "US", "homeCountry": "US"}
 
 content_data_url = "https://online-movie-database.p.rapidapi.com/auto-complete"
 content_details_url = "https://online-movie-database.p.rapidapi.com/title/get-overview-details"
+
 
 def register(request):
     if request.method == 'POST':
@@ -53,9 +54,10 @@ class MovieView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             content_list = Content.objects.filter(is_watched=False)
-            return render(request,'organizer_app/organizer.html', {'content_list': content_list})
+            return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
         else:
             return redirect('login_url')
+
     def post(self, request, *args, **kwargs):
         # getting all unwatched objects from 'content' model
         if request.user.is_authenticated:
@@ -64,13 +66,13 @@ class MovieView(View):
                 # get movie name from user
                 query = ''
                 if 'get_movie' in request.POST:
-                    query= request.POST.get('movie_name')
+                    query = request.POST.get('movie_name')
                     querystring = {"q": query}
 
-                    #get json data of entered movie name
+                    # get json data of entered movie name
                     response = requests.get(content_data_url, headers=headers, params=querystring).json()
 
-                    #get id of entered movie
+                    # get id of entered movie
                     get_id = response['d'][0]['id']
 
                     querystring = {"tconst": get_id}
@@ -99,40 +101,46 @@ class MovieView(View):
                     'full_plot': content_details_response['plotSummary']['text'],
                 }
 
-                #save data from json to model
+                # save data from json to model
                 Content.objects.get_or_create(**content_details_data)
                 redirect('/')
 
-                return render(request,'organizer_app/organizer.html', {'content_list': content_list})
+                return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
             except Exception:
                 messages.info(request, 'Content not found, try again.')
-                return render(request, 'organizer_app/organizer.html',{'content_list': content_list})
+                return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
         else:
             return render(request, 'organizer_app/login.html')
+
+
 # delete content from list
 def delete(request, id):
     content = Content.objects.get(id=id)
     content.delete()
     return redirect('/')
 
+
 # movie details page
 def details(request, id):
     content = Content.objects.get(id=id)
     return render(request, 'organizer_app/details.html', {'content': content})
 
+
 # mark movie as watched
 def mark_as_watched(request, id):
     content = Content.objects.get(id=id)
-    content.is_watched=True
+    content.is_watched = True
     content.save()
     return redirect('/')
+
 
 # mark movie as unwatched
 def mark_as_unwatched(request, id):
     content = Content.objects.get(id=id)
-    content.is_watched=False
+    content.is_watched = False
     content.save()
     return redirect('/history')
+
 
 # watch history page
 class HistoryView(View):
@@ -140,6 +148,7 @@ class HistoryView(View):
         content_list = Content.objects.filter(is_watched=True)
         context = {'content_list': content_list}
         return render(request, 'organizer_app/history.html', context)
+
 
 class MostPopularMoviesView(View):
     def get(self, request, *args, **kwargs):
