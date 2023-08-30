@@ -61,58 +61,54 @@ class MovieView(View):
 
     def post(self, request, *args, **kwargs):
         # getting all unwatched objects from 'content' model
-        if request.user.is_authenticated:
-            content_list = Content.objects.filter(is_watched=False, user=request.user)
-            try:
-                # get movie name from user
-                query = ''
-                if 'get_movie' in request.POST:
-                    query = request.POST.get('movie_name')
-                    querystring = {"q": query}
+        if not request.user.is_authenticated:
+            return redirect('login_url')
+        content_list = Content.objects.filter(is_watched=False, user=request.user)
+        try:
+            # get movie name from user
+            query = ''
+            if 'get_movie' in request.POST:
+                query = request.POST.get('movie_name')
+                querystring = {"q": query}
 
-                    # get json data of entered movie name
-                    response = requests.get(content_data_url, headers=headers, params=querystring).json()
+                # get json data of entered movie name
+                response = requests.get(content_data_url, headers=headers, params=querystring).json()
 
-                    # get id of entered movie
-                    get_id = response['d'][0]['id']
+                # get id of entered movie
+                get_id = response['d'][0]['id']
 
-                    querystring = {"tconst": get_id}
+                querystring = {"tconst": get_id}
 
-                if 'get_movie_url' in request.POST:
-                    get_url = request.POST.get('movie_url')
-                    match = re.search(r'tt\d+', get_url)
-                    if match:
-                        get_id = match.group(0)
+            if 'get_movie_url' in request.POST:
+                get_url = request.POST.get('movie_url')
+                match = re.search(r'tt\d+', get_url)
+                if match:
+                    get_id = match.group(0)
 
-                    querystring = {"tconst": get_id}
+                querystring = {"tconst": get_id}
 
-                content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
+            content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
 
-                content_details_data = {
-                    'imdb_id': get_id,
-                    'user': request.user,
-                    'title': content_details_response['title']['title'],
-                    'year': content_details_response['title']['year'],
-                    'type': content_details_response['title']['titleType'].capitalize(),
-                    'top_rank': content_details_response['ratings']['topRank'],
-                    'image': content_details_response['title']['image']['url'],
-                    'duration': content_details_response['title']['runningTimeInMinutes'],
-                    'rating': content_details_response['ratings']['rating'],
-                    'genres': ', '.join(content_details_response['genres']),
-                    'some_plot': content_details_response['plotOutline']['text'],
-                    'full_plot': content_details_response['plotSummary']['text'],
-                }
-                # save data from json to model
-                Content.objects.create(**content_details_data)
-                redirect('http://127.0.0.1:8000/')
-                return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
-            except Exception:
-                redirect('http://127.0.0.1:8000/')
-                messages.info(request, 'Content not found, try again.')
-                return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
-        else:
-            return render(request, 'organizer_app/login.html')
-        return redirect('/')
+            content_details_data = {
+                'imdb_id': get_id,
+                'user': request.user,
+                'title': content_details_response['title']['title'],
+                'year': content_details_response['title']['year'],
+                'type': content_details_response['title']['titleType'].capitalize(),
+                'top_rank': content_details_response['ratings']['topRank'],
+                'image': content_details_response['title']['image']['url'],
+                'duration': content_details_response['title']['runningTimeInMinutes'],
+                'rating': content_details_response['ratings']['rating'],
+                'genres': ', '.join(content_details_response['genres']),
+                'some_plot': content_details_response['plotOutline']['text'],
+                'full_plot': content_details_response['plotSummary']['text'],
+            }
+            # save data from json to model
+            Content.objects.create(**content_details_data)
+            return redirect('home_url')
+        except Exception:
+            messages.info(request, 'Content not found, try again.')
+            return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
 
 
 # delete content from list
@@ -150,3 +146,7 @@ class HistoryView(View):
         content_list = Content.objects.filter(is_watched=True, user=request.user)
         context = {'content_list': content_list}
         return render(request, 'organizer_app/history.html', context)
+
+def btn(request):
+    if 'btn' in request.POST:
+        return redirect('register_url')
