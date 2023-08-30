@@ -1,14 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-# 'content_id': response['d'][0]['id'],
-#           'content_name': response['d'][0]['l'],
-#           'content_image': response['d'][0]['i']['imageUrl'],
-#           'content_type': response['d'][0]['qid'],
-#           'release_year': response['d'][0]['y'],
 
 class Content(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    id = models.CharField(max_length=50, primary_key=True)
+    imdb_id = models.CharField(max_length=50, default='no_id')
     title = models.CharField(max_length=200)
     year = models.IntegerField()
     type = models.CharField(max_length=50)

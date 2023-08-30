@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
 import requests
@@ -88,7 +89,7 @@ class MovieView(View):
                 content_details_response = requests.get(content_details_url, headers=headers, params=querystring).json()
 
                 content_details_data = {
-                    'id': get_id,
+                    'imdb_id': get_id,
                     'user': request.user,
                     'title': content_details_response['title']['title'],
                     'year': content_details_response['title']['year'],
@@ -101,17 +102,17 @@ class MovieView(View):
                     'some_plot': content_details_response['plotOutline']['text'],
                     'full_plot': content_details_response['plotSummary']['text'],
                 }
-
                 # save data from json to model
                 Content.objects.create(**content_details_data)
-                redirect('/')
-
+                redirect('http://127.0.0.1:8000/')
                 return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
             except Exception:
+                redirect('http://127.0.0.1:8000/')
                 messages.info(request, 'Content not found, try again.')
                 return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
         else:
             return render(request, 'organizer_app/login.html')
+        return redirect('/')
 
 
 # delete content from list
