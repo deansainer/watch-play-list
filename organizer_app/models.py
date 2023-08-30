@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # 'content_id': response['d'][0]['id'],
 #           'content_name': response['d'][0]['l'],
 #           'content_image': response['d'][0]['i']['imageUrl'],
@@ -6,6 +7,7 @@ from django.db import models
 #           'release_year': response['d'][0]['y'],
 
 class Content(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     id = models.CharField(max_length=50, primary_key=True)
     title = models.CharField(max_length=200)
     year = models.IntegerField()
@@ -18,16 +20,5 @@ class Content(models.Model):
     some_plot = models.TextField()
     full_plot = models.TextField()
     is_watched = models.BooleanField(default=False)
-    def __str__(self):
-        return self.title
-
-class Movie(models.Model):
-    id = models.CharField(max_length=50, primary_key=True)
-    title = models.CharField(max_length=200)
-    year = models.IntegerField()
-    image = models.URLField()
-    duration = models.IntegerField()
-    genres = models.JSONField()
-
     def __str__(self):
         return self.title

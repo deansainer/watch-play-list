@@ -53,7 +53,7 @@ def user_logout(request):
 class MovieView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            content_list = Content.objects.filter(is_watched=False)
+            content_list = Content.objects.filter(is_watched=False, user=request.user)
             return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
         else:
             return redirect('login_url')
@@ -61,7 +61,7 @@ class MovieView(View):
     def post(self, request, *args, **kwargs):
         # getting all unwatched objects from 'content' model
         if request.user.is_authenticated:
-            content_list = Content.objects.filter(is_watched=False)
+            content_list = Content.objects.filter(is_watched=False, user=request.user)
             try:
                 # get movie name from user
                 query = ''
@@ -89,6 +89,7 @@ class MovieView(View):
 
                 content_details_data = {
                     'id': get_id,
+                    'user': request.user,
                     'title': content_details_response['title']['title'],
                     'year': content_details_response['title']['year'],
                     'type': content_details_response['title']['titleType'].capitalize(),
@@ -102,7 +103,7 @@ class MovieView(View):
                 }
 
                 # save data from json to model
-                Content.objects.get_or_create(**content_details_data)
+                Content.objects.create(**content_details_data)
                 redirect('/')
 
                 return render(request, 'organizer_app/organizer.html', {'content_list': content_list})
@@ -145,6 +146,6 @@ def mark_as_unwatched(request, id):
 # watch history page
 class HistoryView(View):
     def get(self, request, *args, **kwargs):
-        content_list = Content.objects.filter(is_watched=True)
+        content_list = Content.objects.filter(is_watched=True, user=request.user)
         context = {'content_list': content_list}
         return render(request, 'organizer_app/history.html', context)
