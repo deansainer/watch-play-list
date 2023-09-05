@@ -147,6 +147,7 @@ class HistoryView(View):
         context = {'content_list': content_list}
         return render(request, 'organizer_app/history.html', context)
 
+
 def btn(request):
     if 'btn' in request.POST:
         return redirect('register_url')
